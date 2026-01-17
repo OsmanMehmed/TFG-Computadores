@@ -243,7 +243,12 @@ export default function useCalculateMathSeries(): {
         !processedMathSeriesCalculationPetition,
       );
     }
-  }, [calculatedMathFunction, successionFormIndexToAdd]);
+  }, [
+    calculatedMathFunction,
+    successionFormIndexToAdd,
+    mathSeriesFormList,
+    mathFunctionsResultValues,
+  ]);
 
   return {
     mathSeriesResultValuesList,
