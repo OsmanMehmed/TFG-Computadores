@@ -5,4 +5,5 @@ export default interface MathSeriesFormModel {
   isArithmeticProgression: boolean;
   difference: number;
   seriesVarName: string;
+  valid?: boolean;
 }
