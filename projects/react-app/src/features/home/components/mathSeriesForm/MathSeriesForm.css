@@ -1,0 +1,37 @@
+
+.form-series{
+    height: 140px;
+}
+
+.input-series-function{
+    height: 70px;
+    width: 19rem;
+    user-select: none;
+}
+
+.succesion-config-control{
+    margin-bottom: 10px !important;
+}
+
+.succession-config-input{
+    margin-left: 20px;
+    height: 30px;
+    width: 9.4rem;
+    user-select: none;
+    
+    font-weight: bold !important;
+    font-size: normal !important;
+}
+
+.text-function{
+    font-weight: bold !important;
+    font-size: large !important;
+}
+
+.function-start{
+    margin-top: 5px;
+}
+
+.input-adornments{
+    cursor: initial;
+}

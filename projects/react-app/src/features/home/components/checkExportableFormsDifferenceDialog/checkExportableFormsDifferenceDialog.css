@@ -1,0 +1,21 @@
+
+.export-dialog__title{
+    user-select: none !important;
+    background-color: #1d498a1a !important;
+}
+
+.export-dialog__content{
+    background-color: #1d498a1a !important;
+}
+
+.export-dialog__actions{
+    background-color: #1d498a1a !important;
+}
+
+.export-dialog__content-text{
+    text-align: center;
+}
+
+.export-dialog__export-buttons{
+    width: 230px !important;
+}

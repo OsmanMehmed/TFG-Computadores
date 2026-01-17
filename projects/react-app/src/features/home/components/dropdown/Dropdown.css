@@ -1,0 +1,14 @@
+
+
+.menu{
+    max-height: 200px !important;
+}
+
+.menu-item{
+    justify-content: center !important;
+    width: 320px;
+}
+
+.button{
+    width: 321px;
+}

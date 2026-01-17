@@ -1,0 +1,32 @@
+
+.main{
+    height: 7rem;
+    background-color:#1D488A !important;
+}
+
+.container{
+    width: 100%;
+    margin: 1rem;
+}
+
+.toolbar{
+    width: 100%;
+    place-content: center;
+}
+
+.propaMapIcon{
+    height: 50px;
+    width: 50px;
+    margin-left: -5%;
+    margin-right: 4rem;
+    user-select: none;
+}
+
+.title{
+    font-size: 4ch !important;
+    font-weight: 700 !important;
+    letter-spacing: 1rem !important;
+    color: white;
+    text-decoration: none;
+    user-select: none;
+}

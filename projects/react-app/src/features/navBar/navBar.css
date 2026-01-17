@@ -1,0 +1,31 @@
+
+.app-bar{
+    height: 7rem;
+    background-color:#1D488A !important;
+    width: 100%;
+}
+
+.toolbar-container{
+    margin: 1rem;
+}
+
+.toolbar{
+    place-content: center;
+}
+
+.propamap-icon{
+    height: 50px;
+    width: 50px;
+    margin-left: -5%;
+    margin-right: 4rem;
+    user-select: none;
+}
+
+.title-text{
+    font-size: 4ch !important;
+    font-weight: 700 !important;
+    letter-spacing: 1rem !important;
+    color: white;
+    text-decoration: none;
+    user-select: none;
+}

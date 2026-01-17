@@ -1,0 +1,13 @@
+{
+    "functionsToApply": [
+        "cos(x)",
+        "sin(x)",
+        "m*x",
+        "m*x + n",
+        "a*x^2 + b*x + c + d + c + e +f",
+        "k/x",
+        "c*sqrt(a*x+b)",
+        "a*x+   b*x+  c"
+    ]
+}
+

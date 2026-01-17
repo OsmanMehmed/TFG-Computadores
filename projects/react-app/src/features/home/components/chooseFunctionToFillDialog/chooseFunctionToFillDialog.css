@@ -1,0 +1,30 @@
+
+.fill-function-dialog__main{
+    background-color: #1d498a1a !important
+}
+
+.fill-function-dialog__title{
+    user-select: none !important;
+    background-color: #1d498a1a !important;
+}
+
+.fill-function-dialog__content{
+    background-color: #1d498a1a !important;
+}
+
+.fill-function-dialog__actions{
+    background-color: #1d498a1a !important;
+}
+
+.fill-function-dialog__selected-value{
+    text-align: center;
+    margin-top: 10px !important;
+}
+
+.fill-function-dialog__Dropdown{
+    text-align: center;
+}
+
+.fill-function-dialog__selected-value-input{
+    text-align: center !important;
+}
