@@ -1,5 +1,5 @@
-import { createTheme, Theme } from "@mui/material/styles";
-import { Constants } from "./constants";
+import { createTheme, Theme } from '@mui/material/styles'
+import { Constants } from './constants'
 
 export class Palette {
   public static getPalette(): Theme {
@@ -9,7 +9,7 @@ export class Palette {
           main: Constants.primaryPaletteColor,
         },
       },
-    });
-    return theme;
+    })
+    return theme
   }
 }

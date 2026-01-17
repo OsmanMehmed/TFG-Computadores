@@ -16,12 +16,15 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.7",
     "mathjs": "^11.7.0",
+    "plotly": "^1.0.6",
     "plotly.js": "^2.20.0",
-    "re-resizable": "^6.11.2",
+    "re-resizable": "^6.9.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.43.2",
+    "react-hook-form": "^7.43.9",
     "react-plotly.js": "^2.6.0",
+    "react-resizable": "^3.0.5",
+    "uuid": "^9.0.0",
     "wouter": "^2.10.0"
   },
   "devDependencies": {
@@ -32,11 +35,12 @@
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "@types/react-plotly.js": "^2.6.0",
+    "@types/react-resizable": "^3.0.4",
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.0",
     "@vitejs/plugin-react": "^2.2.0",
     "eslint": "^8.23.1",
-    "prettier": "^3.8.0",
     "typescript": "^4.8.4",
     "vite": "^3.2.0"
   }

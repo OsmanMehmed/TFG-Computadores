@@ -1,15 +1,16 @@
-.footer__app-bar {
-  height: 1rem;
-  background-color: #1d488a !important;
-  position: fixed;
-  top: auto !important;
-  bottom: 0 !important;
+
+.footer__app-bar{
+    height: 1rem;
+    background-color:#1D488A !important;
+    position: fixed;
+    top: auto !important;
+    bottom: 0 !important;
 }
 
-.footer__toolbar-container {
-  width: 100%;
+.footer__toolbar-container{
+    width: 100%;
 }
 
-.footer__toolbar {
-  width: 100%;
+.footer__toolbar{
+    width: 100%;
 }

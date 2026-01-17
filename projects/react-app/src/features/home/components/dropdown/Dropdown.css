@@ -1,12 +1,14 @@
-.menu {
-  max-height: 200px !important;
+
+
+.menu{
+    max-height: 200px !important;
 }
 
-.menu-item {
-  justify-content: center !important;
-  width: 320px;
+.menu-item{
+    justify-content: center !important;
+    width: 320px;
 }
 
-.button {
-  width: 321px;
+.button{
+    width: 321px;
 }

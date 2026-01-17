@@ -25,3 +25,4 @@ replay_pid*
 projects/react-app/dist
 projects/react-app/tsc_output.txt
 projects/react-app/target
+package-lock.json
