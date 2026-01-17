@@ -1,19 +1,18 @@
-.plot{
-    width: 90% !important;
-    height: 86% !important;
+.plot {
+  width: 90% !important;
+  height: 86% !important;
 }
 
-
-.message__container{
-    max-width: 81.5rem;
-    height: 300px !important;
-    width: 90% !important;
-    min-width: 90% !important;
-    font-size: 3em;
-    font-weight: bold; 
-    color: #d1d6e3 ;
-    text-transform: uppercase; 
-    letter-spacing: 2px;
-    margin-inline: 5% !important;
-    margin-top: 150px !important;
+.message__container {
+  max-width: 81.5rem;
+  height: 300px !important;
+  width: 90% !important;
+  min-width: 90% !important;
+  font-size: 3em;
+  font-weight: bold;
+  color: #d1d6e3;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-inline: 5% !important;
+  margin-top: 150px !important;
 }
