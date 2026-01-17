@@ -10,7 +10,7 @@ export class Constants {
   public static readonly Precision: string = "Precision";
   public static readonly FunctionResults: string = "Function results";
   public static readonly FunctionElement: string = `Function${Constants.NBS}element`;
-  public static readonly ExportedFileName: string = "PolyGraph-file";
+  public static readonly ExportedFileName: string = "propagamap-file";
   public static readonly FunctionGraph: string = "Function graph";
   public static readonly ConfigurationTitle: string = "Configuration panel";
   public static readonly LoadFile: string = "Introduce data by file";

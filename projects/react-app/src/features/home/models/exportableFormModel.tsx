@@ -1,5 +1,5 @@
-import MathFunctionFormModel from "./mathFunctionFormModel";
-import MathSeriesFormModel from "./mathSeriesFormModel";
+import MathFunctionFormModel from './mathFunctionFormModel'
+import MathSeriesFormModel from './mathSeriesFormModel'
 
 export default interface ExportableImportableFormModel {
   functionsResults: string[][];

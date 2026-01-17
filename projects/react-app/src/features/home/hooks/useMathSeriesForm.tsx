@@ -1,11 +1,9 @@
-import { useState, useEffect, useRef } from "react";
-import { Constants } from "../../shared/utils/constants";
-import MathSeriesFormModel from "../models/mathSeriesFormModel";
+/* eslint-disable no-extra-boolean-cast */
+import { useState, useEffect, useRef } from 'react'
+import MathSeriesFormModel from '../models/mathSeriesFormModel'
+import MathSeriesFormPropsModel from '../models/mathSeriesFormPropsModel'
+import { isSomeImportantAtributeMathSeriesNull } from '../../shared/utils/functions'
 
-type UseMathSeriesFormProps = {
-  isModeProgression: boolean;
-  onFormChange: (form: MathSeriesFormModel) => void;
-};
 
 type UseMathSeriesFormOutput = {
   differenceBetweenNValues: number | undefined;
@@ -21,51 +19,76 @@ type UseMathSeriesFormOutput = {
   lastPossibleNValueRef: React.MutableRefObject<HTMLInputElement | null>;
 };
 
-export const useMathSeriesForm = (
-  props: UseMathSeriesFormProps,
-): UseMathSeriesFormOutput => {
-  const [differenceBetweenNValues, setDifferenceBetweenNValues] =
-    useState<number>();
-  const [initialNValue, setInitialNValue] = useState<number>();
-  const [lastPossibleNValue, setLastPossibleNValue] = useState<number>();
-  const [functionValue, setFunctionValue] = useState<string>("");
-  const differenceBetweenNValuesRef = useRef<HTMLInputElement | null>(null);
-  const lastPossibleNValueRef = useRef<HTMLInputElement | null>(null);
-  const initialNValueRef = useRef<HTMLInputElement | null>(null);
+export const useMathSeriesForm = (props: MathSeriesFormPropsModel): UseMathSeriesFormOutput => {
+  const [differenceBetweenNValues, setDifferenceBetweenNValues] = useState<number>()
+  const [initialNValue, setInitialNValue] = useState<number>()
+  const [lastPossibleNValue, setLastPossibleNValue] = useState<number>()
+  const [functionValue, setFunctionValue] = useState<string>('')
+  const differenceBetweenNValuesRef = useRef<HTMLInputElement | null>(null)
+  const lastPossibleNValueRef = useRef<HTMLInputElement | null>(null)
+  const initialNValueRef = useRef<HTMLInputElement | null>(null)
+
+  const [dontCalculateSeriesIfFormLoaded, setDontCalculateSeriesIfFormLoaded] = useState<boolean>(false)
 
   useEffect(() => {
-    setDifferenceBetweenNValues(undefined);
-    setInitialNValue(undefined);
-    setLastPossibleNValue(undefined);
-    setFunctionValue(undefined);
+    setDifferenceBetweenNValues(undefined)
+    setInitialNValue(undefined)
+    setLastPossibleNValue(undefined)
+    setFunctionValue('')
 
     return () => {
       if (differenceBetweenNValuesRef?.current) {
-        differenceBetweenNValuesRef.current.value = "";
+        differenceBetweenNValuesRef.current.value = ''
       }
 
       if (lastPossibleNValueRef?.current) {
-        lastPossibleNValueRef.current.value = "";
+        lastPossibleNValueRef.current.value = ''
       }
 
       if (initialNValueRef?.current) {
-        initialNValueRef.current.value = "";
+        initialNValueRef.current.value = ''
       }
-    };
-  }, [props.isModeProgression]);
+    }
+  }, [props.isModeProgression])
+
 
   useEffect(() => {
-    const tmpMathSeriesModel: MathSeriesFormModel = getActualFormValue();
+    if (!!props.mathSeriesFormLoaded){
+      setDifferenceBetweenNValues(props.mathSeriesFormLoaded.difference)
+      setInitialNValue(props.mathSeriesFormLoaded.initialNValue)
+      setLastPossibleNValue(props.mathSeriesFormLoaded.finalNValue)
+      setFunctionValue(!props.isModeProgression ? props.mathSeriesFormLoaded.seriesFunction : '')
 
-    if (isMathSeriesFormValid(tmpMathSeriesModel)) {
-      props.onFormChange(tmpMathSeriesModel);
+      if (!!differenceBetweenNValuesRef?.current) {
+        differenceBetweenNValuesRef.current.value = `${props.mathSeriesFormLoaded.difference}`
+      }
+
+      if (!!lastPossibleNValueRef?.current) {
+        lastPossibleNValueRef.current.value = `${props.mathSeriesFormLoaded.finalNValue}`
+      }
+
+      if (!!initialNValueRef?.current) {
+        initialNValueRef.current.value = `${props.mathSeriesFormLoaded.initialNValue}`
+      }
+
+      setDontCalculateSeriesIfFormLoaded(true)
     }
-  }, [
-    differenceBetweenNValues,
-    initialNValue,
-    lastPossibleNValue,
-    functionValue,
-  ]);
+  }, [props.mathSeriesFormLoaded])
+
+  useEffect(() => {
+    const tmpMathSeriesModel: MathSeriesFormModel = getActualFormValue()
+    if (!dontCalculateSeriesIfFormLoaded) {
+      if (!isSomeImportantAtributeMathSeriesNull(tmpMathSeriesModel)) {
+        tmpMathSeriesModel.valid = true
+        props.onFormChange(tmpMathSeriesModel)
+      } else {
+        tmpMathSeriesModel.valid = false
+        props.onFormChange(tmpMathSeriesModel)
+      }
+    } else {
+      setDontCalculateSeriesIfFormLoaded(false)
+    }
+  }, [differenceBetweenNValues, initialNValue, lastPossibleNValue, functionValue])
 
   function getActualFormValue(): MathSeriesFormModel {
     const tmpMathSeriesModel: MathSeriesFormModel = {
@@ -74,34 +97,10 @@ export const useMathSeriesForm = (
       finalNValue: lastPossibleNValue,
       initialNValue: initialNValue,
       difference: differenceBetweenNValues,
-      seriesVarName: `${Constants.VAR}${0}`,
-    };
-
-    return tmpMathSeriesModel;
-  }
-
-  function isMathSeriesFormValid(form: MathSeriesFormModel): boolean {
-    if (form.isArithmeticProgression) {
-      if (
-        (!!form?.finalNValue || form?.finalNValue === 0) &&
-        (!!form?.initialNValue || form?.initialNValue === 0) &&
-        !!form?.difference
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      if (
-        (!!form?.finalNValue || form?.finalNValue === 0) &&
-        (!!form?.initialNValue || form?.initialNValue === 0) &&
-        !!form?.seriesFunction
-      ) {
-        return true;
-      } else {
-        return false;
-      }
+      seriesVarName: props.mathSeriesFormIdentifier,
     }
+
+    return tmpMathSeriesModel
   }
 
   return {
@@ -116,5 +115,5 @@ export const useMathSeriesForm = (
     differenceBetweenNValuesRef,
     initialNValueRef,
     lastPossibleNValueRef,
-  };
-};
+  }
+}

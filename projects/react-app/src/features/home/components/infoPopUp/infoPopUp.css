@@ -1,43 +1,44 @@
-.info-container {
-  width: 350px;
-  height: 500px !important;
+
+.info-container{
+    width: 350px;
+    height: 500px !important;
 }
 
-.menu-item {
-  justify-content: center !important;
-  width: 320px;
+.menu-item{
+    justify-content: center !important;
+    width: 320px;
 }
 
 .title {
-  text-decoration: underline;
-  margin-left: 20px !important;
-  margin-bottom: 20px !important;
+    text-decoration: underline;
+    margin-left: 20px !important;
+    margin-bottom: 20px !important;
 }
 
-.body {
-  margin-left: 30px !important;
+.body{
+    margin-left: 30px !important;
 }
 
-.body-element {
-  margin-bottom: 15px !important;
-  list-style: disc !important;
-  text-align: justify;
-  margin-right: 20px !important;
+.body-element{
+    margin-bottom: 15px !important;
+    list-style: disc !important;
+    text-align: justify;
+    margin-right: 20px !important;
 }
 
-.body-element--list {
-  list-style: disc !important;
-  margin-bottom: 5px !important;
-  text-align: justify;
-  margin-right: 20px !important;
+.body-element--list{
+    list-style: disc !important;
+    margin-bottom: 5px !important;
+    text-align: justify;
+    margin-right: 20px !important;
 }
 
-.list-horizontal {
-  list-style: none !important;
+.list-horizontal {  
+    list-style: none !important;
 }
 
-.list-horizontal-element {
-  margin-bottom: 10px !important;
-  text-align: justify;
-  margin-right: 20px !important;
+.list-horizontal-element{
+    margin-bottom: 10px !important;
+    text-align: justify;
+    margin-right: 20px !important;
 }

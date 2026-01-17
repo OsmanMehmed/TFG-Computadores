@@ -1,103 +1,74 @@
-import { Constants } from "./constants";
+import MathSeriesFormModel from '../../home/models/mathSeriesFormModel'
+import { Constants } from './constants'
 
 export function cutIfLongName(name: string, cutIfGreatherThan: number): string {
   if (name.length > cutIfGreatherThan) {
-    const shortedName = name
-      .substring(0, name.length - 1)
-      .substring(0, cutIfGreatherThan);
+    const shortedName = name.substring(0, name.length - 1).substring(0, cutIfGreatherThan)
 
-    return `${shortedName}${Constants.treeDots}`;
+    return `${shortedName}${Constants.treeDots}`
   }
 
-  return name;
+  return name
 }
 
-export function cutIfLongFileName(
-  fileName: string,
-  cutIfGreatherThan: number,
-): string {
+export function cutIfLongFileName(fileName: string, cutIfGreatherThan: number): string {
   if (fileName.length > cutIfGreatherThan) {
-    const extension = fileName.substring(fileName.lastIndexOf(".") + 1);
-    const shortedName = fileName
-      .substring(0, fileName.length - extension.length - 1)
-      .substring(0, cutIfGreatherThan);
+    const extension = fileName.substring(fileName.lastIndexOf('.') + 1)
+    const shortedName = fileName.substring(0, fileName.length - extension.length - 1).substring(0, cutIfGreatherThan)
 
-    return `${shortedName}${Constants.treeDots}${Constants.Dot}${extension}`;
+    return `${shortedName}${Constants.treeDots}${Constants.Dot}${extension}`
   }
 
-  return fileName;
+  return fileName
+}
+
+export function getRandomColorHexadecimal(): string{
+  const letters = '0123456789ABCDEF'
+  let color = '#'
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)]
+  }
+  return color
+}
+
+export function isSomeImportantAtributeMathSeriesNull(form: MathSeriesFormModel): boolean {
+  return ((!form.finalNValue && form.finalNValue !== 0) || (!form.initialNValue && form.initialNValue !== 0) || (!form.isArithmeticProgression ? !form.seriesFunction : !form.difference && form.difference !== 0) || !form.seriesVarName)
 }
 
 export function getFunctionParameters(
   functionList: string[],
-  variableList: string[] | null,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  existingParams: string[],
-  currentParams: Record<string, string>,
-  reservedWords: string[],
+  variablesToDiscard: string[],
+  parametersToDiscard: string[],
+  oldParameterHashMap: Record<string, string>,
+  reservedWords: string[]
 ): Record<string, string> {
-  const params: Record<string, string> = {};
-  const uniqueParams = new Set<string>();
+  const newNewParameterHashMap: Record<string, string> = {}
+  const escapedWords = reservedWords.map((word) => escapeRegExp(word))
+  const regexPattern = new RegExp(escapedWords.join('|'), 'gi')
 
-  functionList.forEach((func) => {
-    const tokens = func.match(/[a-zA-Z_][a-zA-Z0-9_]*/g) || [];
+  const functionSTRRemovedReservedWords = functionList.join('()').replace(/\s+/g, '').split(regexPattern)
 
-    tokens.forEach((token) => {
-      if (reservedWords.includes(token)) return;
-      if (variableList && variableList.includes(token)) return;
+  functionSTRRemovedReservedWords
+    .filter((element) => isNaN(Number(element)))
+    .forEach((parameter) => {
+      if ((!!variablesToDiscard && variablesToDiscard.length > 0) || (!!parametersToDiscard && parametersToDiscard.length > 0)) {
+        if (!variablesToDiscard.includes(parameter) && !parametersToDiscard.includes(parameter)) {
+          newNewParameterHashMap[parameter] = ''
+        } else {
+          if (parametersToDiscard.includes(parameter)) {
+            if (!variablesToDiscard.includes(parameter)) {
+              newNewParameterHashMap[parameter] = oldParameterHashMap[parameter]
+            }
+          }
+        }
+      } else {
+        newNewParameterHashMap[parameter] = ''
+      }
+    })
 
-      uniqueParams.add(token);
-    });
-  });
-
-  uniqueParams.forEach((param) => {
-    if (
-      currentParams &&
-      Object.prototype.hasOwnProperty.call(currentParams, param)
-    ) {
-      params[param] = currentParams[param];
-    } else {
-      params[param] = "";
-    }
-  });
-
-  return params;
+  return newNewParameterHashMap
 }
 
-export function getRandomColorHexadecimal(): string {
-  return (
-    "#" +
-    Math.floor(Math.random() * 16777215)
-      .toString(16)
-      .padStart(6, "0")
-  );
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isSomeImportantAtributeMathSeriesNull(
-  mathSeriesForm: any,
-): boolean {
-  if (!mathSeriesForm) {
-    return true;
-  }
-
-  if (
-    mathSeriesForm.initialNValue === undefined ||
-    mathSeriesForm.initialNValue === null
-  ) {
-    return true;
-  }
-
-  if (
-    mathSeriesForm.finalNValue === undefined ||
-    mathSeriesForm.finalNValue === null
-  ) {
-    return true;
-  }
-
-  if (!mathSeriesForm.seriesVarName) {
-    return true;
-  }
-
-  return false;
+export function escapeRegExp(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
