@@ -1,46 +1,69 @@
-import { Dispatch, SetStateAction, useState } from 'react'
-import MathFunctionFormModel from '../models/mathFunctionFormModel'
-import { compile } from 'mathjs'
+import { Dispatch, SetStateAction, useState } from "react";
+import MathFunctionFormModel from "../models/mathFunctionFormModel";
+import { compile } from "mathjs";
 
 export default function useCalculateMathFunction(): {
-  mathFunctionResultValues: number[];
+  mathFunctionsResultValues: number[][];
   mathFunctionForm: MathFunctionFormModel;
   convertMathFunctionForm: (form: MathFunctionFormModel) => void;
-  } {
-  const [mathFunctionResultValues, setMathFunctionResultValues]: [number[], Dispatch<SetStateAction<number[]>>] = useState<number[]>([])
+  mathFunctionCalculated: boolean;
+} {
+  const [mathFunctionsResultValues, setMathFunctionsResultValues]: [
+    number[][],
+    Dispatch<SetStateAction<number[][]>>,
+  ] = useState<number[][]>([]);
 
-  const [mathFunctionForm, setMathFunctionForm]: [MathFunctionFormModel, Dispatch<SetStateAction<MathFunctionFormModel>>] = useState<MathFunctionFormModel>(undefined)
+  const [mathFunctionForm, setMathFunctionForm]: [
+    MathFunctionFormModel,
+    Dispatch<SetStateAction<MathFunctionFormModel>>,
+  ] = useState<MathFunctionFormModel>(undefined);
+
+  const [mathFunctionCalculated, setMathFunctionCalculated] =
+    useState<boolean>(false);
 
   const convertMathFunctionForm = (form: MathFunctionFormModel): void => {
-    const operationResultList: number[] = []
+    const operationFunctionsResultList: number[][] = [];
 
-    setMathFunctionForm(form)
+    setMathFunctionForm(form);
 
-    let mathFunction = form.function.replace(/\s+/g, '')
+    form.functions.forEach((functionExpression) => {
+      let mathFunction = functionExpression.replace(/\s+/g, "");
 
-    Object.entries(form.paramList).forEach(([paramName, paramValue]) => {
-      mathFunction = mathFunction.replaceAll(paramName, paramValue)
-    })
+      Object.entries(form.paramList).forEach(([paramName, paramValue]) => {
+        mathFunction = mathFunction.replaceAll(paramName, paramValue);
+      });
 
-    for (let loopIndex = 0; loopIndex < Object.entries(form.varList)[0][1].length; loopIndex++) {
-      const tmpCompileFunctionObject: {
-        [key: string]: number;
-      } = {}
+      const operationResultList: number[] = [];
 
-      Object.entries(form.varList).forEach(([varName, values]) => {
-        tmpCompileFunctionObject[varName] = parseFloat(values[loopIndex])
-      })
+      // Check if varList has entries and if the first entry has values
+      const varEntries = Object.entries(form.varList);
+      const loopLength = varEntries.length > 0 ? varEntries[0][1].length : 0;
 
-      const mathFunctionCompiled = compile(mathFunction)
-      operationResultList.push(mathFunctionCompiled.evaluate(tmpCompileFunctionObject))
-    }
+      for (let loopIndex = 0; loopIndex < loopLength; loopIndex++) {
+        const tmpCompileFunctionObject: {
+          [key: string]: number;
+        } = {};
 
-    setMathFunctionResultValues(operationResultList)
-  }
+        Object.entries(form.varList).forEach(([varName, values]) => {
+          tmpCompileFunctionObject[varName] = parseFloat(values[loopIndex]);
+        });
+
+        const mathFunctionCompiled = compile(mathFunction);
+        operationResultList.push(
+          mathFunctionCompiled.evaluate(tmpCompileFunctionObject),
+        );
+      }
+      operationFunctionsResultList.push(operationResultList);
+    });
+
+    setMathFunctionsResultValues(operationFunctionsResultList);
+    setMathFunctionCalculated(!mathFunctionCalculated);
+  };
 
   return {
-    mathFunctionResultValues,
+    mathFunctionsResultValues,
     mathFunctionForm,
     convertMathFunctionForm,
-  }
+    mathFunctionCalculated,
+  };
 }
